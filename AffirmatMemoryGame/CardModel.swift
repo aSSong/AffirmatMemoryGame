@@ -6,3 +6,9 @@
 //
 
 import Foundation
+struct Card: Identifiable, Equatable {
+    let id = UUID()
+    let content: String
+    var isMatched = false
+    var isFaceUp = false
+}
