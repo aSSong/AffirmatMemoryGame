@@ -25,14 +25,17 @@ struct OverlayCardView: View {
                 // 内容层 - 保留动画效果
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.white)
-                    .frame(width: 300, height: 400)
+                    .frame(width: 300, height: 450)
                     .overlay(
                         Text(content)
+                            .font(.largeTitle)
                             .multilineTextAlignment(.center)
                             .padding()
                             .foregroundColor(.black)
+                           // .shadow(radius: 4)
                     )
             }
+            // .shadow(radius: 8)
          //   .transition(.scale.combined(with: .opacity))
             .transition(.opacity)
         }

@@ -24,21 +24,14 @@ struct CardView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                     .foregroundColor(.black)
-                }else{
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.yellow)
-                        .shadow(radius: 4)
-                    Text(card.content)
-                        .font(.caption2)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .foregroundColor(.black)
                 }
             } else {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color.blue)
+                    .shadow(color:.black,radius: 3)
             }
         }
+        
         .rotation3DEffect(
             .degrees(card.isFaceUp ? 0 : 180),
             axis: (x: 0.0, y: 0.5, z: 0.0),anchor: .center,
