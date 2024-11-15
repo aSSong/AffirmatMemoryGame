@@ -7,26 +7,38 @@
 import SwiftUI
 import Foundation
 
-// OverlayCardView.swift
 struct OverlayCardView: View {
     let content: String
+    let onDismiss: () -> Void
     
     var body: some View {
         ZStack {
-            //半透黑色遮罩
-            Color.black.opacity(0.5)
+            // 背景层 - 不参与动画
+            Color.black
+                .opacity(0.5)
                 .edgesIgnoringSafeArea(.all)
-            
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.white)
-                .frame(width: 300, height: 450)
-                .overlay(
-                    Text(content)
-                        .font(.largeTitle)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .foregroundColor(.black)
-                )
+                
+//                .transaction { transaction in
+//                    transaction.animation = nil  // 禁用此视图的动画
+//                }
+            HStack{
+                // 内容层 - 保留动画效果
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.white)
+                    .frame(width: 300, height: 400)
+                    .overlay(
+                        Text(content)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .foregroundColor(.black)
+                    )
+            }
+         //   .transition(.scale.combined(with: .opacity))
+            .transition(.opacity)
         }
+        .onTapGesture {
+            onDismiss()
+        }
+
     }
 }

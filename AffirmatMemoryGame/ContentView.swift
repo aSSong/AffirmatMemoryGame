@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-
 // ContentView.swift
 struct ContentView: View {
     @StateObject private var viewModel = GameViewModel()
@@ -15,24 +14,24 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.gray.opacity(0.2).edgesIgnoringSafeArea(.all)
+            //背景填充
+            Color.white.opacity(0.2).edgesIgnoringSafeArea(.all)
             
             VStack {
+                //标题显示
                 Text(viewModel.lastTappedContent)
-                                    .font(.title2)
-                                    .padding()
-                                    .multilineTextAlignment(.center)
-                                    .animation(.easeInOut, value: viewModel.lastTappedContent)
-                                    .frame(height: 100) // 固定高度以防止布局跳动
+                    .font(.title3)
+                    .padding()
+                    .multilineTextAlignment(.center)
+                    .animation(.easeInOut, value: viewModel.lastTappedContent)
+                    .frame(height: 20)
                 
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(viewModel.cards) { card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
                             .onTapGesture {
-                                withAnimation(){
-                                    viewModel.cardTapped(card)
-                                }
+                                viewModel.cardTapped(card)
                             }
                     }
                 }
@@ -54,13 +53,12 @@ struct ContentView: View {
             }
             
             if viewModel.isShowingOverlay {
-                withAnimation{
-                OverlayCardView(content: viewModel.overlayContent)
-                    .onTapGesture {
-                       
-                            viewModel.dismissOverlay()
-                        }
+                OverlayCardView(
+                    content: viewModel.overlayContent,
+                    onDismiss: {
+                        viewModel.dismissOverlay()
                     }
+                )
             }
         }
     }
