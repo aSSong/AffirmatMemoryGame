@@ -18,16 +18,21 @@ struct ContentView: View {
             Color.gray.opacity(0.2).edgesIgnoringSafeArea(.all)
             
             VStack {
-                Text("Self-Care Memory Game")
-                    .font(.title)
-                    .padding()
+                Text(viewModel.lastTappedContent)
+                                    .font(.title2)
+                                    .padding()
+                                    .multilineTextAlignment(.center)
+                                    .animation(.easeInOut, value: viewModel.lastTappedContent)
+                                    .frame(height: 100) // 固定高度以防止布局跳动
                 
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(viewModel.cards) { card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
                             .onTapGesture {
-                                viewModel.cardTapped(card)
+                                withAnimation(){
+                                    viewModel.cardTapped(card)
+                                }
                             }
                     }
                 }
@@ -49,9 +54,12 @@ struct ContentView: View {
             }
             
             if viewModel.isShowingOverlay {
+                withAnimation{
                 OverlayCardView(content: viewModel.overlayContent)
                     .onTapGesture {
-                        viewModel.dismissOverlay()
+                       
+                            viewModel.dismissOverlay()
+                        }
                     }
             }
         }

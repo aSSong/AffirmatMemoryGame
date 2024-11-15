@@ -11,4 +11,5 @@ struct Card: Identifiable, Equatable {
     let content: String
     var isMatched = false
     var isFaceUp = false
+    var isAnimating = false // 添加动画状态
 }

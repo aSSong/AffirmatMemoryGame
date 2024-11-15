@@ -13,14 +13,16 @@ struct OverlayCardView: View {
     
     var body: some View {
         ZStack {
+            //半透黑色遮罩
             Color.black.opacity(0.5)
                 .edgesIgnoringSafeArea(.all)
             
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 12)
                 .fill(Color.white)
-                .frame(width: 300, height: 400)
+                .frame(width: 300, height: 450)
                 .overlay(
                     Text(content)
+                        .font(.largeTitle)
                         .multilineTextAlignment(.center)
                         .padding()
                         .foregroundColor(.black)
